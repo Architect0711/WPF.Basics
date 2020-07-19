@@ -1,0 +1,182 @@
+﻿<UserControl x:Class="WPF.Basics.UserControls.DoubleSpinnerCircle"
+             x:Name="MyDoubleSpinnerCircle"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:ed="http://schemas.microsoft.com/expression/2010/drawing"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:WPF.Basics.UserControls"
+             mc:Ignorable="d">
+
+
+    <UserControl.Resources>
+
+        <Style TargetType="Grid" x:Key="SquareEnforced">
+            <Setter Property="MinWidth" Value="{Binding ActualHeight, RelativeSource={RelativeSource Self}}" />
+            <Setter Property="MaxWidth" Value="{Binding ActualHeight, RelativeSource={RelativeSource Self}}" />
+        </Style>
+
+        <Storyboard 
+            x:Key="OuterArcStoryboard" 
+            Storyboard.TargetName="OuterArc" 
+            Storyboard.TargetProperty="RenderTransform.(RotateTransform.Angle)">
+
+            <DoubleAnimation 
+                From="0" 
+                To="360" 
+                BeginTime="0:0:0" 
+                Duration="0:0:1" 
+                RepeatBehavior="Forever">
+            </DoubleAnimation>
+
+        </Storyboard>
+
+        <Storyboard 
+    x:Key="InnerArcStoryboard" 
+    Storyboard.TargetName="InnerArc" 
+    Storyboard.TargetProperty="RenderTransform.(RotateTransform.Angle)">
+
+            <DoubleAnimation 
+                From="360" 
+                To="0" 
+                BeginTime="0:0:0" 
+                Duration="0:0:1" 
+                RepeatBehavior="Forever">
+            </DoubleAnimation>
+
+        </Storyboard>
+
+    </UserControl.Resources>
+
+    <Grid Style="{StaticResource SquareEnforced}">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="10*"></ColumnDefinition>
+            <ColumnDefinition Width="*"></ColumnDefinition>
+            <ColumnDefinition Width="10*"></ColumnDefinition>
+            <ColumnDefinition Width="150*"></ColumnDefinition>
+            <ColumnDefinition Width="10*"></ColumnDefinition>
+            <ColumnDefinition Width="*"></ColumnDefinition>
+            <ColumnDefinition Width="10*"></ColumnDefinition>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="10*"></RowDefinition>
+            <RowDefinition Height="*"></RowDefinition>
+            <RowDefinition Height="10*"></RowDefinition>
+            <RowDefinition Height="150*"></RowDefinition>
+            <RowDefinition Height="10*"></RowDefinition>
+            <RowDefinition Height="*"></RowDefinition>
+            <RowDefinition Height="10*"></RowDefinition>
+        </Grid.RowDefinitions>
+
+        <Ellipse x:Name="OuterRing" 
+                 Width="Auto"
+                 Height="Auto"
+                 Grid.Column="0"
+                 Grid.ColumnSpan="7"
+                 Grid.Row="0"
+                 Grid.RowSpan="7"
+                 Fill="{Binding ElementName=MyDoubleSpinnerCircle, Path=OuterRingColor}" 
+                 Panel.ZIndex="0"/>
+
+        <Ellipse x:Name="Rim" 
+                 Width="Auto"
+                 Height="Auto"
+                 Grid.Column="1"
+                 Grid.ColumnSpan="5"
+                 Grid.Row="1"
+                 Grid.RowSpan="5"
+                 Fill="{Binding ElementName=MyDoubleSpinnerCircle, Path=RimColor}"
+                 Panel.ZIndex="2"/>
+
+        <Ellipse x:Name="InnerRing"
+                 Width="Auto"
+                 Height="Auto" 
+                 Grid.Column="2"
+                 Grid.ColumnSpan="3"
+                 Grid.Row="2"
+                 Grid.RowSpan="3"
+                 Fill="{Binding ElementName=MyDoubleSpinnerCircle, Path=InnerRingColor}"
+                 Panel.ZIndex="2"/>
+
+        <Ellipse x:Name="CenterCircle"
+                 Grid.Column="3"
+                 Grid.Row="3"
+                 Width="Auto"
+                 Height="Auto" 
+                 Fill="{Binding ElementName=MyDoubleSpinnerCircle, Path=CenterCircleColor}"
+                 Panel.ZIndex="4"/>
+
+        <ed:Arc x:Name="OuterArc" 
+                Width="Auto"
+                Height="Auto" 
+                Grid.Column="0"
+                Grid.ColumnSpan="7"
+                Grid.Row="0"
+                Grid.RowSpan="7"
+                Fill="{Binding ElementName=MyDoubleSpinnerCircle, Path=OuterArcColor}"
+                Panel.ZIndex="1"
+                EndAngle="90"
+                StartAngle="0" 
+                ArcThickness="1000"
+                RenderTransformOrigin="0.5,0.5"
+                Margin="0"
+                Stretch="None" >
+
+            <ed:Arc.Triggers>
+
+                <EventTrigger RoutedEvent="FrameworkElement.Loaded">
+
+                    <EventTrigger.Actions>
+
+                        <BeginStoryboard Storyboard="{StaticResource OuterArcStoryboard}" />
+
+                    </EventTrigger.Actions>
+
+                </EventTrigger>
+
+            </ed:Arc.Triggers>
+            <ed:Arc.RenderTransform>
+
+                <RotateTransform Angle="0" />
+
+            </ed:Arc.RenderTransform>
+        </ed:Arc>
+
+        <ed:Arc x:Name="InnerArc" 
+                Width="Auto"
+                Height="Auto" 
+                Grid.Column="2"
+                Grid.ColumnSpan="3"
+                Grid.Row="2"
+                Grid.RowSpan="3"
+                Fill="{Binding ElementName=MyDoubleSpinnerCircle, Path=InnerArcColor}"
+                Panel.ZIndex="3"
+                EndAngle="90"
+                StartAngle="0" 
+                ArcThickness="1000"
+                RenderTransformOrigin="0.5,0.5"
+                Stretch="None" >
+
+            <ed:Arc.Triggers>
+
+                <EventTrigger RoutedEvent="FrameworkElement.Loaded">
+
+                    <EventTrigger.Actions>
+
+                        <BeginStoryboard Storyboard="{StaticResource InnerArcStoryboard}" />
+
+                    </EventTrigger.Actions>
+
+                </EventTrigger>
+
+            </ed:Arc.Triggers>
+            <ed:Arc.RenderTransform>
+
+                <RotateTransform Angle="0" />
+
+            </ed:Arc.RenderTransform>
+        </ed:Arc>
+
+    </Grid>
+
+</UserControl>
