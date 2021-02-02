@@ -4,7 +4,7 @@
 library
 C#
 .cs
-E:\Develop\VisualStudio\10_Work\WPF.Basics\obj\Debug\
+C:\Users\Robert\Desktop\New folder\WPF.Basics\obj\Debug\
 WPF.Basics
 none
 false
@@ -12,9 +12,9 @@ DEBUG;TRACE
 
 4819080120
 
-2033455777
-78-59613461
+21-1487383638
+791978603177
 MVVM\UserControlHost.xaml;UserControls\BindablePasswordBox.xaml;UserControls\DoubleSpinnerCircle.xaml;UserControls\SimpleSpinner.xaml;
 
-False
+True
 
